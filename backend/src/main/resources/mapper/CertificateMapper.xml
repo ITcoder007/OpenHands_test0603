@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.certificate.dao.CertificateMapper">
+    <resultMap id="CertificateResultMap" type="com.certificate.model.Certificate">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="domainId" column="domain_id" />
+        <result property="startDate" column="start_date" />
+        <result property="endDate" column="end_date" />
+        <result property="status" column="status" />
+        <result property="contentMd5" column="content_md5" />
+        <result property="createdBy" column="created_by" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedBy" column="updated_by" />
+        <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.certificate.model.Certificate" useGeneratedKeys="false">
+        INSERT INTO certificates (
+            id, 
+            name, 
+            domain_id, 
+            start_date, 
+            end_date, 
+            status, 
+            content_md5, 
+            created_by, 
+            created_at, 
+            updated_by, 
+            updated_at
+        ) VALUES (
+            #{id},
+            #{name},
+            #{domainId},
+            #{startDate},
+            #{endDate},
+            #{status},
+            #{contentMd5},
+            #{createdBy},
+            #{createdAt},
+            #{updatedBy},
+            #{updatedAt}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.certificate.model.Certificate">
+        UPDATE certificates
+        SET 
+            name = #{name},
+            domain_id = #{domainId},
+            start_date = #{startDate},
+            end_date = #{endDate},
+            status = #{status},
+            content_md5 = #{contentMd5},
+            updated_by = #{updatedBy},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectByDomainId" parameterType="string" resultMap="CertificateResultMap">
+        SELECT * FROM certificates 
+        WHERE domain_id = #{domainId}
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="selectById" parameterType="string" resultMap="CertificateResultMap">
+        SELECT * FROM certificates 
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateStatus">
+        UPDATE certificates
+        SET 
+            status = #{status},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM certificates 
+        WHERE id = #{id}
+    </delete>
+</mapper>

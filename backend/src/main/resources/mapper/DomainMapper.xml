@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.certificate.dao.DomainMapper">
+    <resultMap id="DomainResultMap" type="com.certificate.model.Domain">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="description" column="description" />
+        <result property="status" column="status" />
+        <result property="createdBy" column="created_by" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedBy" column="updated_by" />
+        <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.certificate.model.Domain">
+        INSERT INTO domains (
+            id, 
+            name, 
+            description, 
+            status, 
+            created_by, 
+            created_at
+        ) VALUES (
+            #{id},
+            #{name},
+            #{description},
+            #{status},
+            #{createdBy},
+            #{createdAt}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.certificate.model.Domain">
+        UPDATE domains
+        SET
+            name = #{name},
+            description = #{description},
+            status = #{status},
+            updated_by = #{updatedBy},
+            updated_at = #{updatedAt}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectAll" resultMap="DomainResultMap">
+        SELECT 
+            id, 
+            name, 
+            description, 
+            status, 
+            created_by, 
+            created_at, 
+            updated_by, 
+            updated_at
+        FROM domains
+    </select>
+
+    <select id="selectById" parameterType="string" resultMap="DomainResultMap">
+        SELECT 
+            id, 
+            name, 
+            description, 
+            status, 
+            created_by, 
+            created_at, 
+            updated_by, 
+            updated_at
+        FROM domains
+        WHERE id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM domains
+        WHERE id = #{id}
+    </delete>
+</mapper>
