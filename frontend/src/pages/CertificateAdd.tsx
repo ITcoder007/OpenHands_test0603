@@ -15,11 +15,11 @@ const CertificateAdd: React.FC = () => {
   const onFinish = async (values: CertificateDTO) => {
     try {
       setLoading(true);
-      // Convert dayjs objects to ISO strings
-      const payload = {
+      // Convert dayjs objects to Date objects
+      const payload: CertificateDTO = {
         ...values,
-        startDate: values.startDate.toISOString(),
-        endDate: values.endDate.toISOString(),
+        startDate: new Date(values.startDate),
+        endDate: new Date(values.endDate),
       };
       const response = await addCertificate(payload);
       message.success('Certificate added successfully');

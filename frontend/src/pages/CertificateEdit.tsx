@@ -49,10 +49,10 @@ const CertificateEdit: React.FC = () => {
         message.error('Certificate ID is required');
         return;
       }
-      const updatedCertificate = {
+      const updatedCertificate: CertificateDTO = {
         ...values,
-        startDate: values.startDate.toISOString(),
-        endDate: values.endDate.toISOString()
+        startDate: new Date(values.startDate),
+        endDate: new Date(values.endDate)
       };
       await updateCertificate(id, updatedCertificate);
       message.success('Certificate updated successfully');
