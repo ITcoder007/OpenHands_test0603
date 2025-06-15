@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, DatePicker, Form, Input, message, Select, Space } from 'antd';
+import { Button, DatePicker, Form, Input, message, Space } from 'antd';
 import dayjs from 'dayjs';
 import { addCertificate } from '../api/certificateApi';
 import { CertificateDTO } from '../models/Certificate';
 
-const { TextArea } = Input;
 
 const CertificateAdd: React.FC = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const onFinish = async (values: CertificateDTO) => {
+  const onFinish = async (values: any) => {
     try {
       setLoading(true);
-      // Convert dayjs objects to ISO strings
-      const payload = {
-        ...values,
-        startDate: values.startDate.toISOString(),
-        endDate: values.endDate.toISOString(),
+      // Convert dayjs objects to Date objects
+      const payload: CertificateDTO = {
+        name: values.name,
+        domainId: values.domainId,
+        startDate: values.startDate.toDate(),
+        endDate: values.endDate.toDate(),
+        contentMd5: values.contentMd5
       };
       const response = await addCertificate(payload);
       message.success('Certificate added successfully');

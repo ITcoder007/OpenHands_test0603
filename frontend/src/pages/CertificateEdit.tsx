@@ -43,16 +43,18 @@ const CertificateEdit: React.FC = () => {
     fetchCertificate();
   }, [id, form, navigate]);
 
-  const onFinish = async (values: CertificateDTO) => {
+  const onFinish = async (values: any) => {
     try {
       if (!id) {
         message.error('Certificate ID is required');
         return;
       }
-      const updatedCertificate = {
-        ...values,
-        startDate: values.startDate.toISOString(),
-        endDate: values.endDate.toISOString()
+      const updatedCertificate: CertificateDTO = {
+        name: values.name,
+        domainId: values.domainId,
+        startDate: values.startDate.toDate(),
+        endDate: values.endDate.toDate(),
+        contentMd5: values.contentMd5
       };
       await updateCertificate(id, updatedCertificate);
       message.success('Certificate updated successfully');

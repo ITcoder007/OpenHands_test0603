@@ -10,13 +10,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
  * Main application class for Certificate and Domain Management System.
  * Excludes JPA/Hibernate auto-configuration as we're using MyBatis.
  */
-@SpringBootApplication(
-    exclude = {
-        DataSourceAutoConfiguration.class,
-        DataSourceTransactionManagerAutoConfiguration.class,
-        HibernateJpaAutoConfiguration.class
-    }
-)
+@SpringBootApplication
 public class Application {
     /**
      * Main entry point for the Spring Boot application.

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { CertificateVO } from '../models/Certificate';
 import { CertificateDTO } from '../models/Certificate';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:8080/api';
 
 /**
  * Certificate API client for interacting with certificate-related endpoints

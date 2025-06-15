@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -41,7 +41,7 @@ public class DomainService {
         domain.setDescription(domainDTO.getDescription());
         domain.setStatus(DEFAULT_STATUS);
         domain.setCreatedBy(userContext.getCurrentUserId());
-        domain.setCreatedAt(LocalDateTime.now());
+        domain.setCreatedAt(new Date());
 
         logger.info("Creating domain: {}", domainDTO.getName());
         
@@ -66,7 +66,7 @@ public class DomainService {
         existingDomain.setName(domainDTO.getName());
         existingDomain.setDescription(domainDTO.getDescription());
         existingDomain.setUpdatedBy(userContext.getCurrentUserId());
-        existingDomain.setUpdatedAt(LocalDateTime.now());
+        existingDomain.setUpdatedAt(new Date());
 
         logger.info("Updating domain with id: {}", id);
         
@@ -97,23 +97,21 @@ public class DomainService {
     }
 
     @Transactional
-    public void deleteDomain(String id) {
+    public boolean deleteDomain(String id) {
         logger.info("Deleting domain with id: {}", id);
         int rowsAffected = domainMapper.delete(id);
-        if (rowsAffected == 0) {
-            throw new DomainNotFoundException(id);
-        }
+        return rowsAffected > 0;
     }
 
     private DomainVO convertToVO(Domain domain) {
-        return DomainVO.builder()
-                .id(domain.getId())
-                .name(domain.getName())
-                .description(domain.getDescription())
-                .status(domain.getStatus())
-                .createdAt(domain.getCreatedAt())
-                .updatedAt(domain.getUpdatedAt())
-                .build();
+        DomainVO vo = new DomainVO();
+        vo.setId(domain.getId());
+        vo.setName(domain.getName());
+        vo.setDescription(domain.getDescription());
+        vo.setStatus(domain.getStatus());
+        vo.setCreatedAt(domain.getCreatedAt());
+        vo.setUpdatedAt(domain.getUpdatedAt());
+        return vo;
     }
 
     private void validateDomainDTO(DomainDTO domainDTO) {

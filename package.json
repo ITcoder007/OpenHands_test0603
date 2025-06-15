@@ -1,0 +1,28 @@
+{
+  "name": "openhands_test0603",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mock-server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITcoder007/OpenHands_test0603.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ITcoder007/OpenHands_test0603/issues"
+  },
+  "homepage": "https://github.com/ITcoder007/OpenHands_test0603#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
